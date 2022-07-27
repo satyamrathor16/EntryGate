@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, StatusBar } from 'react-native';
 const Container = ({ children }) => {
     return (
         <View style={styles.flex}>
-            <StatusBar barStyle={'dark-content'} translucent backgroundColor={'transparent'} />
+            <StatusBar barStyle={'light-content'} translucent backgroundColor={'transparent'} />
             {children}
         </View>
     );

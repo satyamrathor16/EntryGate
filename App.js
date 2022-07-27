@@ -5,12 +5,15 @@ import {
 } from 'react-native';
 import Container from './src/Container';
 import Main from './src/navigation/Main';
+import { MenuProvider } from 'react-native-popup-menu';
 
 const App = () => {
   return (
-    <Container>
-      <Main />
-    </Container>
+    <MenuProvider>
+      <Container>
+        <Main />
+      </Container>
+    </MenuProvider>
   );
 };
 

@@ -8,10 +8,10 @@ interface propsInterfce {
     title: string;
     imageStyle?: object;
     titleStyles?: object;
-    leftButtonPress?: () => {};
+    leftButtonPress?: () => void;
     showRightButton?: boolean;
     showLeftButton?: boolean;
-    rightButtonPress?: () => {};
+    rightButtonPress?: () => void;
     mainContainer?: object;
     statusBarContainerStyle?: object;
     contentContainerStyle?: object;
@@ -49,7 +49,7 @@ const Header = (props: propsInterfce) => {
                         {leftImage ?
                             <Image source={leftImage} resizeMode='contain' style={[styles.leftImageStyle, imageStyle]} />
                             :
-                            <Image source={Assets.back} resizeMode='contain' style={[styles.leftImageStyle, imageStyle]} />
+                            <Image source={Assets.back} resizeMode='contain' style={[styles.leftImageStyle, styles.backIconColor, imageStyle]} />
                         }
                     </TouchableOpacity>
                     :
@@ -65,7 +65,9 @@ const Header = (props: propsInterfce) => {
                         />
                     </View>
                     :
-                    <CustomText numberofLine={1} textStyle={[styles.titleStyle, titleStyles]}>{title}</CustomText>
+                    <View style={styles.centerContainer}>
+                        <CustomText numberofLine={1} textStyle={[styles.titleStyle, titleStyles]}>{title}</CustomText>
+                    </View>
                 }
 
                 {showRightButton ?
@@ -99,20 +101,20 @@ const Header = (props: propsInterfce) => {
 const styles = StyleSheet.create({
     container: {
         width: Config.Constants.SCREEN_WIDTH,
-        backgroundColor:Config.Colors.WHITE,
-        elevation: 7,
-        shadowColor: Config.Colors.BLACK,
-        shadowOffset: {
-            width: 0,
-            height: 2
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 5
+        backgroundColor: Config.Colors.BLACK,
+        // elevation: 7,
+        // shadowColor: Config.Colors.BLACK,
+        // shadowOffset: {
+        //     width: 0,
+        //     height: 2
+        // },
+        // shadowOpacity: 0.25,
+        // shadowRadius: 5
     },
     statusBarContainer: {
         width: Config.Constants.SCREEN_WIDTH,
         height: getStatusBarHeight(),
-        backgroundColor: Config.Colors.WHITE,
+        backgroundColor: Config.Colors.BLACK,
     },
     contentContainer: {
         flexDirection: 'row',
@@ -121,7 +123,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingHorizontal: 20,
         justifyContent: 'space-between',
-        backgroundColor: Config.Colors.WHITE,
+        backgroundColor: Config.Colors.PRIMARY,
+        borderTopRightRadius: 12,
+        borderTopLeftRadius: 12,
     },
     leftImageStyle: {
         height: 25,
@@ -131,11 +135,17 @@ const styles = StyleSheet.create({
         height: 25,
         width: 25,
     },
-    titleStyle: {
+    centerContainer: {
         flex: 10,
+        alignItems: Platform.OS == 'android' ? 'flex-start' : 'center',
+    },
+    titleStyle: {
+        // flex: 10,
         fontSize: 18,
+        color: Config.Colors.WHITE,
         // fontFamily: Platform.OS == 'android' ? Config.Theme.FONT_BOLD : Config.Theme.FONT_SEMI_BOLD,
-        textAlign: 'center',
+        // textAlign: Platform.OS == 'android' ? 'justify' : 'center',
+        // textAlign: 'center',
     },
     imageButtonStyle: {
         flex: 1,
@@ -177,6 +187,9 @@ const styles = StyleSheet.create({
         fontSize: 8,
         color: Config.Colors.BLACK
     },
+    backIconColor: {
+        tintColor: Config.Colors.SECONDARY
+    }
 })
 
 export default Header;
