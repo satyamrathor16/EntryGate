@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Modal, TouchableOpacity, Image, Platform, Linking } from 'react-native';
+import { View, StyleSheet, Modal, TouchableOpacity, Image, Platform, Linking } from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
 import { BlurView } from "@react-native-community/blur";
 import { check, request, PERMISSIONS, RESULTS } from 'react-native-permissions';
@@ -8,7 +8,7 @@ import Config from '../Config';
 import assets from '../assets';
 // import Utils from '../utils';
 // import Module from '../module';
-import Component from '../components';
+import Text from './CustomText'
 
 interface ImagePickerPopupProps {
     showOption: boolean;
@@ -237,7 +237,7 @@ const ImagePickerPopup = (props: ImagePickerPopupProps) => {
                             style={styles.imagePickerPopupImages}
                             resizeMode='contain'
                         />
-                        <Component.Text textStyle={styles.buttonTextStyle}>Camera</Component.Text>
+                        <Text textStyle={styles.buttonTextStyle}>Camera</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity onPress={() => {
@@ -258,7 +258,7 @@ const ImagePickerPopup = (props: ImagePickerPopupProps) => {
                             style={styles.imagePickerPopupImages}
                             resizeMode='contain'
                         />
-                        <Component.Text textStyle={styles.buttonTextStyle}>Gallery</Component.Text>
+                        <Text textStyle={styles.buttonTextStyle}>Gallery</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity
@@ -319,7 +319,7 @@ const styles = StyleSheet.create({
         height: 75,
     },
     buttonTextStyle: {
-        color: Config.Colors.WHITE,
+        color: Config.Colors.PRIMARY,
         // fontFamily: Config.Theme.FONT_BOLD,
         textAlign: 'center'
     }

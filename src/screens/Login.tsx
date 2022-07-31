@@ -66,7 +66,12 @@ const Login = ({ navigation }: NativeStackHeaderProps) => {
                 <Components.Button
                     title='Submit'
                     onPress={() => {
-
+                        navigation.navigate('SecretaryDashboard')
+                        // navigation.navigate('GatekeeperDashboard')
+                        // navigation.navigate('CommitteeMemberDashboard')
+                        // navigation.navigate('OwnerDashboard')
+                        // navigation.navigate('StaffDashboard')
+                        // navigation.navigate('TenantDashboard')
                     }}
                     buttonStyle={styles.submitButtonSty}
                 />

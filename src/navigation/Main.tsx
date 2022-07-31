@@ -11,6 +11,13 @@ import SignupGatekeeper from '../screens/SignupGatekeeper';
 import SignupOwner from '../screens/SignupOwner';
 import SignupStaff from '../screens/SignupStaff';
 import SignupTenant from '../screens/SignupTenant';
+import Secretary from '../screens/Dashboards/Secretary';
+import Gatekeeper from '../screens/Dashboards/Gatekeeper';
+import Staff from '../screens/Dashboards/Staff';
+import Owner from '../screens/Dashboards/Owner';
+import Tenant from '../screens/Dashboards/Tenant';
+import CommitteeMember from '../screens/Dashboards/CommitteeMember';
+import SocietyInformation from '../screens/SocietyInformation';
 
 const StackNav = createStackNavigator();
 
@@ -27,6 +34,13 @@ const Main = () => {
         <StackNav.Screen component={SignupOwner} name={'SignupOwner'} />
         <StackNav.Screen component={SignupStaff} name={'SignupStaff'} />
         <StackNav.Screen component={SignupTenant} name={'SignupTenant'} />
+        <StackNav.Screen component={Secretary} name={'SecretaryDashboard'} />
+        <StackNav.Screen component={Gatekeeper} name={'GatekeeperDashboard'} />
+        <StackNav.Screen component={Staff} name={'StaffDashboard'} />
+        <StackNav.Screen component={Owner} name={'OwnerDashboard'} />
+        <StackNav.Screen component={Tenant} name={'TenantDashboard'} />
+        <StackNav.Screen component={CommitteeMember} name={'CommitteeMemberDashboard'} />
+        <StackNav.Screen component={SocietyInformation} name={'SocietyInformation'} />
       </StackNav.Navigator>
     </NavigationContainer>
   );
