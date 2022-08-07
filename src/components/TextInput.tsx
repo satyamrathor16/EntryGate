@@ -46,7 +46,7 @@ const CustomTextInput = (props: TextInputProps) => {
         onChangeText,
         autoCorrect,
         containerStyle,
-        placeholderTextColor
+        placeholderTextColor = Config.Colors.BLACK
     } = props
 
     return (
@@ -83,7 +83,8 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: Config.Colors.BLACK,
         borderBottomWidth: 2,
-        paddingHorizontal:10
+        paddingHorizontal: 10,
+        // textAlignVertical:'top'
         // fontFamily: Config.Theme.FONT_REGULAR,
         // borderWidth:1
         // paddingTop: 18

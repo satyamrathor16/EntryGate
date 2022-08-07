@@ -18,6 +18,14 @@ import Owner from '../screens/Dashboards/Owner';
 import Tenant from '../screens/Dashboards/Tenant';
 import CommitteeMember from '../screens/Dashboards/CommitteeMember';
 import SocietyInformation from '../screens/SocietyInformation';
+import CommitteeMemberList from '../screens/CommitteeMemberList';
+import CommitteeMemberDetails from '../screens/CommitteeMemberDetails';
+import OwnerList from '../screens/OwnerList';
+import OwnerDetails from '../screens/OwnerDetails';
+import TenantList from '../screens/TenantList';
+import TenantDetails from '../screens/TenantDetails';
+import StaffList from '../screens/StaffList';
+import StaffDetails from '../screens/StaffDetails';
 
 const StackNav = createStackNavigator();
 
@@ -41,6 +49,14 @@ const Main = () => {
         <StackNav.Screen component={Tenant} name={'TenantDashboard'} />
         <StackNav.Screen component={CommitteeMember} name={'CommitteeMemberDashboard'} />
         <StackNav.Screen component={SocietyInformation} name={'SocietyInformation'} />
+        <StackNav.Screen component={CommitteeMemberList} name={'CommitteeMemberList'} />
+        <StackNav.Screen component={CommitteeMemberDetails} name={'CommitteeMemberDetails'} />
+        <StackNav.Screen component={OwnerList} name={'OwnerList'} />
+        <StackNav.Screen component={OwnerDetails} name={'OwnerDetails'} />
+        <StackNav.Screen component={TenantList} name={'TenantList'} />
+        <StackNav.Screen component={TenantDetails} name={'TenantDetails'} />
+        <StackNav.Screen component={StaffList} name={'StaffList'} />
+        <StackNav.Screen component={StaffDetails} name={'StaffDetails'} />
       </StackNav.Navigator>
     </NavigationContainer>
   );

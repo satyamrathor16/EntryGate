@@ -33,7 +33,7 @@ const SocietyInformation = ({ navigation }: NativeStackHeaderProps) => {
                             label='Address'
                             text='Jagatpur road, Chandalodia, Ahmedabad, Gujarat'
                             containerStyle={{ marginTop: 10 }}
-                            numberofLine={2}
+                            numberofLine={3}
                         />
                         <Components.LabeledText
                             label='Contact Number'

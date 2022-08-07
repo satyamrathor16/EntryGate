@@ -7,6 +7,8 @@ import TextInput from './TextInput';
 import Button from './CustomButton';
 import ImagePickerPopup from './ImagePickerPopup';
 import DashboardFlatList from './DashboardFlatList';
+import ApproveRejectList from './ApproveRejectList';
+import ProfileImage from './ProfileImage';
 export default {
     Text,
     ClickableText,
@@ -16,5 +18,7 @@ export default {
     Button,
     ImagePickerPopup,
     DashboardFlatList,
-    LabeledText
+    LabeledText,
+    ApproveRejectList,
+    ProfileImage
 }

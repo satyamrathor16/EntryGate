@@ -32,6 +32,7 @@ const LabeledText = (props: TextProps) => {
 const styles = StyleSheet.create({
     textStyle: {
         color: Config.Colors.BLACK,
+        paddingHorizontal:5
         // fontFamily: Config.Theme.FONT_REGULAR,
     },
     labelStyle: {
@@ -41,9 +42,9 @@ const styles = StyleSheet.create({
     },
     textContainer: {
         width: '100%',
-        borderWidth: 1,
+        // borderWidth: 1,
         borderColor: Config.Colors.PRIMARY,
-        borderRadius: 12,
+        borderRadius: 4,
         paddingVertical:10,
         paddingHorizontal:5,
         backgroundColor:Config.Colors.LIGHT_GRAY,

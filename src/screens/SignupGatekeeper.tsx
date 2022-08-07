@@ -274,7 +274,8 @@ const styles = StyleSheet.create({
     },
     addressInput: {
         height: 120,
-        textAlign: 'left'
+        textAlign: 'left',
+        textAlignVertical:'top'
     },
     checkBoxView: {
         flexDirection: 'row',

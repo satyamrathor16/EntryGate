@@ -12,16 +12,16 @@ const Secretary = ({ navigation }: NativeStackHeaderProps) => {
             id: 0, name: 'Society', image: assets.society, navigation: 'SocietyInformation'
         },
         {
-            id: 1, name: 'Committee Members', image: assets.committee_member
+            id: 1, name: 'Committee Members', image: assets.committee_member, navigation: 'CommitteeMemberList'
         },
         {
-            id: 2, name: 'Owners', image: assets.owner
+            id: 2, name: 'Owners', image: assets.owner, navigation: 'OwnerList'
         },
         {
-            id: 3, name: 'Tenants', image: assets.tenant
+            id: 3, name: 'Tenants', image: assets.tenant, navigation: 'TenantList'
         },
         {
-            id: 5, name: 'Staff', image: assets.staff
+            id: 5, name: 'Staff', image: assets.staff, navigation: 'StaffList'
         },
         {
             id: 6, name: 'Wings', image: assets.wings
@@ -73,7 +73,6 @@ const Secretary = ({ navigation }: NativeStackHeaderProps) => {
                 <Components.DashboardFlatList
                     data={listData}
                     onItemPress={({ item, index }) => {
-                        console.log(item.name);
                         if (item.navigation) {
                             navigation.navigate(item.navigation)
                         }

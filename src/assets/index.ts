@@ -35,5 +35,6 @@ export default {
     service_provider: require('./serviceproviderimg.png'),
     pre_booked: require('./prebookingimg.png'),
     vendors: require('./vendorsvisitorimg.png'),
+    profile_placeholder: require('./profile_placeholder.png'),
     
 }
