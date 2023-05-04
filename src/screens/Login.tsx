@@ -1,16 +1,85 @@
 import { NativeStackHeaderProps } from '@react-navigation/native-stack';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Image, TouchableOpacity } from 'react-native';
-
+import SoftInputMode from 'react-native-set-soft-input-mode'
 import assets from '../assets';
 import Components from '../components'
 import Config from '../Config';
-
+import ApiCalls from '../webServices';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useDispatch, useSelector } from 'react-redux';
+import * as Actions from '../store/Actions';
 const Login = ({ navigation }: NativeStackHeaderProps) => {
-
+    const dispatch = useDispatch();
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [passwordVisibility, setPasswordVisibility] = useState(false)
+
+    const validateForm = () => {
+        if (username.trim() === '') {
+            Components.DropDownAlert.showErrorAlert('Username is required', 'Please enter the username');
+            return false
+        }
+        if (password.trim() === '') {
+            Components.DropDownAlert.showErrorAlert('Password is required', 'Please enter the password');
+            return false
+        }
+        return true
+    }
+
+    const onLogin = () => {
+        if (validateForm()) {
+            var payload = {
+                email: username.trim(),
+                password: password.trim()
+            }
+            ApiCalls.PostApiCall(ApiCalls.ApiUrls.Login, JSON.stringify(payload)).then(
+                (success: any) => {
+                    // console.log(JSON.stringify(success));
+                    AsyncStorage.setItem('user_data', JSON.stringify(success.data))
+                    Actions.AddUserData(dispatch, success.data)
+                    if (success.data.role_name == 'COMMITTEE_MEMBER') {
+                        navigation.navigate('CommitteeMemberDashboard')
+                    } else if (success.data.role_name == 'SECRETARY') {
+                        navigation.navigate('SecretaryDashboard')
+                    } else if (success.data.role_name == 'OWNER') {
+                        navigation.navigate('OwnerDashboard')
+                    } else if (success.data.role_name == 'GATEKEEPER') {
+                        navigation.navigate('GatekeeperDashboard')
+                    } else if (success.data.role_name == 'TENANT') {
+                        navigation.navigate('TenantDashboard')
+                    } else if (success.data.role_name == 'STAFF') {
+                        navigation.navigate('StaffDashboard')
+                    }
+                },
+                (fail) => {
+                    console.log(JSON.stringify(fail));
+                })
+        }
+
+        //     if (username == 'humera01@gmail.com' && password == 'humera01') {
+        //         navigation.navigate('CommitteeMemberDashboard')
+        //     } else if (username == 'satyam@gmail.com' && password == 'satyam@123') {
+        // navigation.navigate('SecretaryDashboard')
+        //     } else if (username == 'ajay@gmail.com' && password == 'ajay@123') {
+        // navigation.navigate('OwnerDashboard')
+        //     } else if (username == 'rahul@gmail.com' && password == 'rahul@123') {
+        // navigation.navigate('GatekeeperDashboard')
+        //     } else if (username == 'vikas@gmail.com' && password == 'vikas@123') {
+        // navigation.navigate('TenantDashboard')
+        //     } else if (username == 'jitu@gmail.com' && password == 'jitu@123') {
+        //         navigation.navigate('StaffDashboard')
+        //     }
+    }
+
+    useEffect(() => {
+        SoftInputMode.set(SoftInputMode.ADJUST_NOTHING)
+        return () => {
+            SoftInputMode.set(SoftInputMode.ADJUST_RESIZE)
+        }
+    }, [])
+
+
 
     return (
         <Components.ScreenTopView>
@@ -66,7 +135,8 @@ const Login = ({ navigation }: NativeStackHeaderProps) => {
                 <Components.Button
                     title='Submit'
                     onPress={() => {
-                        navigation.navigate('SecretaryDashboard')
+                        onLogin();
+                        // navigation.navigate('SecretaryDashboard')
                         // navigation.navigate('GatekeeperDashboard')
                         // navigation.navigate('CommitteeMemberDashboard')
                         // navigation.navigate('OwnerDashboard')

@@ -6,13 +6,17 @@ import {
 import Container from './src/Container';
 import Main from './src/navigation/Main';
 import { MenuProvider } from 'react-native-popup-menu';
+import Store from './src/store'
+import { Provider } from 'react-redux'
 
 const App = () => {
   return (
     <MenuProvider>
-      <Container>
-        <Main />
-      </Container>
+      <Provider store={Store}>
+        <Container>
+          <Main />
+        </Container>
+      </Provider>
     </MenuProvider>
   );
 };

@@ -7,6 +7,7 @@ import {
     MenuOption,
     MenuTrigger,
 } from 'react-native-popup-menu';
+import SoftInputMode from 'react-native-set-soft-input-mode'
 
 import assets from '../assets';
 import Components from '../components'
@@ -43,9 +44,14 @@ const SignupTenant = ({ navigation }: NativeStackHeaderProps) => {
     const [referredPresonName, setReferredPresonName] = useState('')
     const [tenantType, setTenantType] = useState('Family')
     const [numberOfPerson, setNumberOfPerson] = useState('')
-
     const [imagePickerPopup, setImagePickerPopup] = useState<boolean>(false)
 
+    useEffect(() => {
+        SoftInputMode.set(SoftInputMode.ADJUST_RESIZE)
+        return () => {
+            SoftInputMode.set(SoftInputMode.ADJUST_NOTHING)
+        }
+    }, [])
 
     return (
         <Components.ScreenTopView>

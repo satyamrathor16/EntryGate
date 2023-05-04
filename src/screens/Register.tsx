@@ -4,6 +4,7 @@ import assets from '../assets';
 import Components from '../components'
 import Config from '../Config';
 import { NativeStackHeaderProps } from '@react-navigation/native-stack';
+import ApiCalls from '../webServices';
 
 const Register = ({ navigation }: NativeStackHeaderProps) => {
 
@@ -16,6 +17,84 @@ const Register = ({ navigation }: NativeStackHeaderProps) => {
     const [city, setCity] = useState('')
     const [address, setAddress] = useState('')
     const [terms, setTerms] = useState(false)
+
+    const validateForm = () => {
+        if (name.trim() === '') {
+            Components.DropDownAlert.showErrorAlert('Name is required', 'Please enter the name');
+            return false
+        }
+        if (email.trim() === '') {
+            Components.DropDownAlert.showErrorAlert('Email is required', 'Please enter the email');
+            return false
+        }
+        if (!(Config.Constants.EMAIL_VALIDATION.test(email.trim()))) {
+            Components.DropDownAlert.showErrorAlert('Email is invailid', 'Please enter the correct email');
+            return false
+        }
+        if (mobileNumber.trim() === '') {
+            Components.DropDownAlert.showErrorAlert('Mobile Number is required', 'Please enter the mobile number');
+            return false
+        }
+        if (mobileNumber.trim().length < 10) {
+            Components.DropDownAlert.showErrorAlert('Mobile Number is invailid', 'Please enter the correct mobile number');
+            return false
+        }
+        if (!(Config.Constants.MOBILE_NUMBER.test(mobileNumber.trim()))) {
+            Components.DropDownAlert.showErrorAlert('Mobile Number is invailid', 'Please enter the correct mobile number');
+            return false
+        }
+        if (societyName.trim() === '') {
+            Components.DropDownAlert.showErrorAlert('Society Name is required', 'Please enter the society name');
+            return false
+        }
+        if (country.trim() === '') {
+            Components.DropDownAlert.showErrorAlert('Country is required', 'Please enter the country');
+            return false
+        }
+        if (city.trim() === '') {
+            Components.DropDownAlert.showErrorAlert('City is required', 'Please enter the city');
+            return false
+        }
+        if (state.trim() === '') {
+            Components.DropDownAlert.showErrorAlert('State is required', 'Please enter the state');
+            return false
+        }
+        if (address.trim() === '') {
+            Components.DropDownAlert.showErrorAlert('Address is required', 'Please enter the address');
+            return false
+        }
+        if (!terms) {
+            Components.DropDownAlert.showErrorAlert('Terms & Condition is required', 'For moving forward you have to accept our terms and condition.');
+            return false
+        }
+        return true
+    }
+
+    const onSubmit = () => {
+
+        if (validateForm()) {
+            var payload = {
+                name: name.trim(),
+                email_id: email.trim(),
+                contact_number: mobileNumber.trim(),
+                society_name: societyName.trim(),
+                country: country.trim(),
+                state: state.trim(),
+                city: city.trim(),
+                address: address.trim()
+            }
+            ApiCalls.PostApiCall(ApiCalls.ApiUrls.AddInquiry, JSON.stringify(payload)).then(
+                (success: any) => {
+                    // console.log(success);
+                    navigation.goBack();
+                    Components.DropDownAlert.showSuccessAlert('Registered Successfully', 'Our team contact you soon.')
+                },
+                (fail) => {
+                    Components.DropDownAlert.showSuccessAlert('Something went wrong', fail)
+                })
+        }
+
+    }
 
     return (
         <Components.ScreenTopView>
@@ -33,56 +112,68 @@ const Register = ({ navigation }: NativeStackHeaderProps) => {
                     <View style={Config.GlobalStyles.pagePaddingSide}>
                         <Components.TextInput
                             value={name}
-                            placeholder='Name'
+                            placeholder='Name*'
+                            placeholderTextColor={Config.Colors.GRAY}
                             onChangeText={(value) => {
                                 setName(value)
                             }}
                         />
                         <Components.TextInput
                             value={email}
-                            placeholder='Email'
+                            placeholder='Email*'
+                            placeholderTextColor={Config.Colors.GRAY}
+                            keyboardType='email-address'
                             onChangeText={(value) => {
                                 setEmail(value)
                             }}
                         />
                         <Components.TextInput
                             value={mobileNumber}
-                            placeholder='Mobile Number'
+                            placeholder='Mobile Number*'
+                            placeholderTextColor={Config.Colors.GRAY}
+                            keyboardType='numeric'
+                            maxLength={10}
                             onChangeText={(value) => {
+
                                 setMobileNumber(value)
                             }}
                         />
                         <Components.TextInput
                             value={societyName}
-                            placeholder='Society Name'
+                            placeholder='Society Name*'
+                            placeholderTextColor={Config.Colors.GRAY}
                             onChangeText={(value) => {
                                 setSocietyName(value)
                             }}
                         />
                         <Components.TextInput
                             value={country}
-                            placeholder='Country'
+                            placeholder='Country*'
+                            placeholderTextColor={Config.Colors.GRAY}
                             onChangeText={(value) => {
                                 setCountry(value)
                             }}
                         />
                         <Components.TextInput
                             value={state}
-                            placeholder='State'
+                            placeholder='State*'
+                            placeholderTextColor={Config.Colors.GRAY}
                             onChangeText={(value) => {
                                 setState(value)
                             }}
                         />
                         <Components.TextInput
                             value={city}
-                            placeholder='City'
+                            placeholder='City*'
+                            placeholderTextColor={Config.Colors.GRAY}
                             onChangeText={(value) => {
                                 setCity(value)
                             }}
                         />
                         <Components.TextInput
                             value={address}
-                            placeholder='Address'
+                            placeholder='Address*'
+                            placeholderTextColor={Config.Colors.GRAY}
                             onChangeText={(value) => {
                                 setAddress(value)
                             }}
@@ -112,14 +203,14 @@ const Register = ({ navigation }: NativeStackHeaderProps) => {
                         <Components.Button
                             title='Submit'
                             onPress={() => {
-
+                                onSubmit();
                             }}
-                            buttonStyle={{marginTop: 10,}}
+                            buttonStyle={{ marginTop: 10, }}
                         />
                     </View>
                 </ScrollView>
             </View>
-        </Components.ScreenTopView >
+        </Components.ScreenTopView>
     );
 }
 
@@ -129,7 +220,7 @@ const styles = StyleSheet.create({
     },
     addressInput: {
         height: 120,
-        textAlignVertical:'top'
+        textAlignVertical: 'top'
     },
     checkBoxView: {
         flexDirection: 'row',

@@ -9,6 +9,9 @@ import ImagePickerPopup from './ImagePickerPopup';
 import DashboardFlatList from './DashboardFlatList';
 import ApproveRejectList from './ApproveRejectList';
 import ProfileImage from './ProfileImage';
+import DropDownAlert from './DropDownAlert';
+import LoaderComponent from './LoaderComponent'
+import Loader from './Loader'
 export default {
     Text,
     ClickableText,
@@ -20,5 +23,8 @@ export default {
     DashboardFlatList,
     LabeledText,
     ApproveRejectList,
-    ProfileImage
+    ProfileImage,
+    DropDownAlert,
+    LoaderComponent,
+    Loader
 }

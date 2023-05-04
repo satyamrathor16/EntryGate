@@ -11,6 +11,8 @@ import {
     MenuOption,
     MenuTrigger,
 } from 'react-native-popup-menu';
+import ApiCalls from '../webServices';
+import SoftInputMode from 'react-native-set-soft-input-mode'
 
 const SignupCommitteeMember = ({ navigation }: NativeStackHeaderProps) => {
 
@@ -30,6 +32,104 @@ const SignupCommitteeMember = ({ navigation }: NativeStackHeaderProps) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [imagePickerPopup, setImagePickerPopup] = useState<boolean>(false)
+
+    useEffect(() => {
+        SoftInputMode.set(SoftInputMode.ADJUST_RESIZE)
+        return () => {
+            SoftInputMode.set(SoftInputMode.ADJUST_NOTHING)
+        }
+    }, [])
+
+    const validateForm = () => {
+        if (societyCode.trim() === '') {
+            Components.DropDownAlert.showErrorAlert('Society Code is required', 'Please enter the society code');
+            return false
+        }
+        if (firstName.trim() === '') {
+            Components.DropDownAlert.showErrorAlert('First Name is required', 'Please enter the first name');
+            return false
+        }
+        if (middleName.trim() === '') {
+            Components.DropDownAlert.showErrorAlert('Middle Name is required', 'Please enter the middle name');
+            return false
+        }
+        if (lastName.trim() === '') {
+            Components.DropDownAlert.showErrorAlert('Last Name is required', 'Please enter the last name');
+            return false
+        }
+
+        if (contactNumber.trim().length < 10) {
+            Components.DropDownAlert.showErrorAlert('Contact Number is invailid', 'Please enter the correct contact number');
+            return false
+        }
+        if (!(Config.Constants.MOBILE_NUMBER.test(contactNumber.trim()))) {
+            Components.DropDownAlert.showErrorAlert('Contact Number is invailid', 'Please enter the correct contact number');
+            return false
+        }
+        if (alternativeContactNumber.trim().length < 10) {
+            Components.DropDownAlert.showErrorAlert('Alternative Contact Number is invailid', 'Please enter the correct alternative contact number');
+            return false
+        }
+        if (!(Config.Constants.MOBILE_NUMBER.test(alternativeContactNumber.trim()))) {
+            Components.DropDownAlert.showErrorAlert('Alternative Contact Number is invailid', 'Please enter the correct alternative contact number');
+            return false
+        }
+        if (idProofNumber.trim() === '') {
+            Components.DropDownAlert.showErrorAlert('Id Proof Number is required', 'Please enter the id proof number');
+            return false
+        }
+        if (idProofImage.trim() === '') {
+            Components.DropDownAlert.showErrorAlert('Id Proof Image is required', 'Please select the id proof image');
+            return false
+        }
+        if (profileImage.trim() === '') {
+            Components.DropDownAlert.showErrorAlert('Profile Image is required', 'Please enter the profile image');
+            return false
+        }
+        if (email.trim() === '') {
+            Components.DropDownAlert.showErrorAlert('Email is required', 'Please enter the email');
+            return false
+        }
+        if (!(Config.Constants.EMAIL_VALIDATION.test(email.trim()))) {
+            Components.DropDownAlert.showErrorAlert('Email is invailid', 'Please enter the correct email');
+            return false
+        }
+        if (password.trim() === '') {
+            Components.DropDownAlert.showErrorAlert('Password is required', 'Please enter the password');
+            return false
+        }
+        return true
+    }
+
+    const onSubmit = () => {
+        if (validateForm()) {
+            var formData = new FormData()
+            formData.append('society_id', '3');
+            formData.append('prefix', gender)
+            formData.append('first_name', firstName.trim())
+            formData.append('middle_name', middleName.trim())
+            formData.append('last_name', lastName.trim())
+            formData.append('owner_email_id', email.trim())
+            formData.append('password', password.trim())
+            formData.append('id_proof_number', idProofNumber.trim())
+            formData.append('id_proof_type', idProofType)
+            formData.append('id_proof_image', { uri: idProofImage, name: 'image.jpg', type: 'image/jpeg' });
+            formData.append('owner_contact_number', contactNumber.trim())
+            formData.append('owner_alternative_contact_number', alternativeContactNumber.trim())
+            formData.append('owner_profile_image', { uri: profileImage, name: 'image.jpg', type: 'image/jpeg' })
+            formData.append('created_by', 'Committee Member')
+            ApiCalls.PostApiCall(ApiCalls.ApiUrls.Sign_Committee_Member, formData, true, { 'Content-Type': 'multipart/form-data' }).then(
+                (success: any) => {
+                    // console.log(success);
+                    navigation.goBack();
+                    Components.DropDownAlert.showSuccessAlert('Registered Successfully', 'Please wait till secretary accept your request.')
+                },
+                (fail) => {
+                    Components.DropDownAlert.showSuccessAlert('Something went wrong', fail)
+                })
+        }
+    }
+
 
     return (
         <Components.ScreenTopView>
@@ -98,7 +198,7 @@ const SignupCommitteeMember = ({ navigation }: NativeStackHeaderProps) => {
                                 setLastName(value)
                             }}
                         />
-                        <Components.TextInput
+                        {/* <Components.TextInput
                             value={address}
                             placeholder='Address'
                             onChangeText={(value) => {
@@ -107,7 +207,7 @@ const SignupCommitteeMember = ({ navigation }: NativeStackHeaderProps) => {
                             multiline={true}
                             containerStyle={styles.addressInput}
                             style={styles.addressInput}
-                        />
+                        /> */}
                         <Components.Text textStyle={styles.idProofPlaceholder}>Id Proof Type</Components.Text>
                         <Menu style={{ paddingVertical: 12, paddingHorizontal: 10 }}>
                             <MenuTrigger>
@@ -204,7 +304,7 @@ const SignupCommitteeMember = ({ navigation }: NativeStackHeaderProps) => {
                         <Components.Button
                             title='Submit'
                             onPress={() => {
-
+                                onSubmit()
                             }}
                             buttonStyle={styles.submitButton}
                         />
@@ -239,7 +339,7 @@ const styles = StyleSheet.create({
     addressInput: {
         height: 120,
         textAlign: 'left',
-        textAlignVertical:'top'
+        textAlignVertical: 'top'
     },
     checkBoxView: {
         flexDirection: 'row',

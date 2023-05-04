@@ -26,6 +26,10 @@ import TenantList from '../screens/TenantList';
 import TenantDetails from '../screens/TenantDetails';
 import StaffList from '../screens/StaffList';
 import StaffDetails from '../screens/StaffDetails';
+import EventCreate from '../screens/EventCreate';
+import FacilityCreate from '../screens/FacilityCreate';
+import ServiceCreate from '../screens/ServiceCreate';
+import NoticeboardCreate from '../screens/NoticeboardCreate';
 
 const StackNav = createStackNavigator();
 
@@ -57,6 +61,10 @@ const Main = () => {
         <StackNav.Screen component={TenantDetails} name={'TenantDetails'} />
         <StackNav.Screen component={StaffList} name={'StaffList'} />
         <StackNav.Screen component={StaffDetails} name={'StaffDetails'} />
+        <StackNav.Screen component={EventCreate} name={'EventCreate'} />
+        <StackNav.Screen component={FacilityCreate} name={'FacilityCreate'} />
+        <StackNav.Screen component={ServiceCreate} name={'ServiceCreate'} />
+        <StackNav.Screen component={NoticeboardCreate} name={'NoticeboardCreate'} />
       </StackNav.Navigator>
     </NavigationContainer>
   );

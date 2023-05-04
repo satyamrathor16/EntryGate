@@ -7,6 +7,7 @@ import {
     MenuOption,
     MenuTrigger,
 } from 'react-native-popup-menu';
+import SoftInputMode from 'react-native-set-soft-input-mode'
 
 import assets from '../assets';
 import Components from '../components'
@@ -34,6 +35,12 @@ const SignupGatekeeper = ({ navigation }: NativeStackHeaderProps) => {
     const [password, setPassword] = useState('')
     const [imagePickerPopup, setImagePickerPopup] = useState<boolean>(false)
 
+    useEffect(() => {
+        SoftInputMode.set(SoftInputMode.ADJUST_RESIZE)
+        return () => {
+            SoftInputMode.set(SoftInputMode.ADJUST_NOTHING)
+        }
+    }, [])
 
     return (
         <Components.ScreenTopView>

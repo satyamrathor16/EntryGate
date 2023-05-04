@@ -5,9 +5,13 @@ import { NativeStackHeaderProps } from '@react-navigation/native-stack';
 import assets from '../assets';
 import Components from '../components'
 import Config from '../Config';
-
+import { useDispatch, useSelector } from 'react-redux';
+import * as Actions from '../store/Actions';
 
 const SocietyInformation = ({ navigation }: NativeStackHeaderProps) => {
+
+    const societyInformation = useSelector((state: any) => state.societyData)
+
     return (
         <Components.ScreenTopView>
             <Components.Header
@@ -26,21 +30,21 @@ const SocietyInformation = ({ navigation }: NativeStackHeaderProps) => {
                         />
                         <Components.LabeledText
                             label='Society Name'
-                            text='Krushna nagar'
+                            text={societyInformation.society_name}
                             containerStyle={{ marginTop: 10 }}
                         />
                         <Components.LabeledText
                             label='Address'
-                            text='Jagatpur road, Chandalodia, Ahmedabad, Gujarat'
+                            text={societyInformation.society_address}
                             containerStyle={{ marginTop: 10 }}
                             numberofLine={3}
                         />
                         <Components.LabeledText
                             label='Contact Number'
-                            text='1234567980'
+                            text={societyInformation.society_contact_number}
                             containerStyle={{ marginTop: 10 }}
                         />
-                        
+
                     </View>
                 </ScrollView>
             </View>

@@ -7,6 +7,7 @@ import {
     MenuOption,
     MenuTrigger,
 } from 'react-native-popup-menu';
+import SoftInputMode from 'react-native-set-soft-input-mode'
 
 import assets from '../assets';
 import Components from '../components'
@@ -34,6 +35,74 @@ const SignupStaff = ({ navigation }: NativeStackHeaderProps) => {
     const [password, setPassword] = useState('')
     const [imagePickerPopup, setImagePickerPopup] = useState<boolean>(false)
 
+
+    useEffect(() => {
+        SoftInputMode.set(SoftInputMode.ADJUST_RESIZE)
+        return () => {
+            SoftInputMode.set(SoftInputMode.ADJUST_NOTHING)
+        }
+    }, [])
+
+    const validateForm = () => {
+        if (societyCode.trim() === '') {
+            Components.DropDownAlert.showErrorAlert('Society Code is required', 'Please enter the society code');
+            return false
+        }
+        if (firstName.trim() === '') {
+            Components.DropDownAlert.showErrorAlert('First Name is required', 'Please enter the first name');
+            return false
+        }
+        if (middleName.trim() === '') {
+            Components.DropDownAlert.showErrorAlert('Middle Name is required', 'Please enter the middle name');
+            return false
+        }
+        if (lastName.trim() === '') {
+            Components.DropDownAlert.showErrorAlert('Last Name is required', 'Please enter the last name');
+            return false
+        }
+
+        if (contactNumber.trim().length < 10) {
+            Components.DropDownAlert.showErrorAlert('Contact Number is invailid', 'Please enter the correct contact number');
+            return false
+        }
+        if (!(Config.Constants.MOBILE_NUMBER.test(contactNumber.trim()))) {
+            Components.DropDownAlert.showErrorAlert('Contact Number is invailid', 'Please enter the correct contact number');
+            return false
+        }
+        if (alternativeContactNumber.trim().length < 10) {
+            Components.DropDownAlert.showErrorAlert('Alternative Contact Number is invailid', 'Please enter the correct alternative contact number');
+            return false
+        }
+        if (!(Config.Constants.MOBILE_NUMBER.test(alternativeContactNumber.trim()))) {
+            Components.DropDownAlert.showErrorAlert('Alternative Contact Number is invailid', 'Please enter the correct alternative contact number');
+            return false
+        }
+        if (idProofNumber.trim() === '') {
+            Components.DropDownAlert.showErrorAlert('Id Proof Number is required', 'Please enter the id proof number');
+            return false
+        }
+        if (idProofImage.trim() === '') {
+            Components.DropDownAlert.showErrorAlert('Id Proof Image is required', 'Please select the id proof image');
+            return false
+        }
+        if (profileImage.trim() === '') {
+            Components.DropDownAlert.showErrorAlert('Profile Image is required', 'Please enter the profile image');
+            return false
+        }
+        if (email.trim() === '') {
+            Components.DropDownAlert.showErrorAlert('Email is required', 'Please enter the email');
+            return false
+        }
+        if (!(Config.Constants.EMAIL_VALIDATION.test(email.trim()))) {
+            Components.DropDownAlert.showErrorAlert('Email is invailid', 'Please enter the correct email');
+            return false
+        }
+        if (password.trim() === '') {
+            Components.DropDownAlert.showErrorAlert('Password is required', 'Please enter the password');
+            return false
+        }
+        return true
+    }
 
     return (
         <Components.ScreenTopView>
